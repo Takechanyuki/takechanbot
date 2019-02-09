@@ -1,10 +1,17 @@
 <?php
 
-//comporserでインストールしたライブラリを一括読み込み
-require_once __DIR__ .'/vendor/autoload.php';
+//Composerでインストールしたライブラリを一括読み込み
+require_once __DIR__ . '/vender/autoload.php';
 
-//POSTメゾッドで渡される値を取得、表示
-$inputString = file_get_contents('php://input');
-error_log($inputString);
+//インスタンス化、署名関連
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
+$bot = new \LINE\LINEBot($httpClient, ['channelSerect' => getnv('CHANNEL_SECRET')]);
+$signature = $_SERVER['HTTP_' . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
+$events = $bot->parseEventRequest(file_get_contents('php://input'),$signature);
+
+foreach($event as $event){
+  //テキスト返信
+  $bot->replyText($event->getReplyToken(), 'TextMessage');
+}
 
 ?>
