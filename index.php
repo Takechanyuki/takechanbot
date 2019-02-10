@@ -6,7 +6,7 @@
     $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('Channel_Access_Token');
 
     //CurlHTTPClientとシークレットを使いLINEBotをインスタンス化
-    $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'Channel_?Secret']);
+    $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'Channel_Secret']);
 
     // LINE Messaging APIがリクエストに付与した署名を取得
     $signature = $_SERVER["HTTP_" . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
